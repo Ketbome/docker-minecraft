@@ -1,12 +1,14 @@
 services:
   mc:
-    image: itzg/minecraft-server:latest
+    image: itzg/minecraft-server:java21
     env_file:
       - .env
     tty: true
     stdin_open: true
     ports:
       - "25565:25565"
+      - "24454:24454/udp"
+      - "8100:8100"
     environment:
       EULA: "true"
 
@@ -15,8 +17,8 @@ services:
       #VERSION: "1.16.5"
 
       # FORGE settings
-      #TYPE: FORGE
-      #VERSION: "1.16.5"
+      TYPE: FORGE
+      VERSION: "1.21.1"
 
       # CURSEFORGE settings
       #TYPE: CURSEFORGE
@@ -27,7 +29,7 @@ services:
       # Allocate from https://console.curseforge.com/ and set in .env file
       #MODPACK_PLATFORM: AUTO_CURSEFORGE
       #CF_API_KEY: ${CF_API_KEY}
-      #CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/all-the-mods-9
+      #CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/craft-to-exile-2/files/6128491
       #CF_FILENAME_MATCHER: "0.2.34"
       #CF_FORCE_SYNCHRONIZE: true
       #CF_FORCE_INCLUDE_MODS: 250419
@@ -36,8 +38,8 @@ services:
       INIT_MEMORY: 4G
       MAX_MEMORY: 4G
       TZ: America/Santiago
-      #ENABLE_ROLLING_LOGS: "true"
-      EXEC_DIRECTLY: "true"
+      ENABLE_ROLLING_LOGS: "true"
+      #EXEC_DIRECTLY: "true"
       STOP_SERVER_ANNOUNCE_DELAY: 60
 
       #Server settings
@@ -58,7 +60,7 @@ services:
       # For forge or curseforge, you need to provide the mods and modpacks directories
       #- ./mods:/mods:ro
       # For curseforge, you need to provide the modpacks directory
-      - ./modpacks:/modpacks:ro
+      #- ./modpacks:/modpacks:ro
 
   # Since Docker's default volume driver creates volumes owned by root, this
   # init container will change ownership to match final UID of mc service, above
