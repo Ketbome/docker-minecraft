@@ -1,6 +1,6 @@
 services:
   mc:
-    image: itzg/minecraft-server:java17
+    image: itzg/minecraft-server
     env_file:
       - .env
     tty: true
@@ -24,21 +24,23 @@ services:
       # CURSEFORGE settings
       #TYPE: CURSEFORGE
       #VERSION: "1.20.1"
-      #CF_SERVER_MOD: "/modpacks/Craft.zip"
+      #CF_SERVER_MOD: "/modpacks/prominence.zip"
 
       # CURSEFORGE settings (alternative to CF_SERVER_MOD)
       # Allocate from https://console.curseforge.com/ and set in .env file
       MODPACK_PLATFORM: AUTO_CURSEFORGE
       CF_API_KEY: ${CF_API_KEY}
-      CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/craft-to-exile-2/files/6128491
-      #CF_FILENAME_MATCHER: "0.2.34"
-      #CF_FORCE_SYNCHRONIZE: true
-      #CF_FORCE_INCLUDE_MODS: 250419
-      CF_EXCLUDE_MODS: 925889,1023333,222378
+      CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/prominence-2-rpg
+      CF_FILENAME_MATCHER: "2.8.7"
+      CF_FORCE_SYNCHRONIZE: true
+      CF_FORCE_INCLUDE_MODS: 4731991
+      #CF_EXCLUDE_MODS: |
+      #CF_OVERRIDES_EXCLUSIONS: shaderpacks/**
 
       # Optional: set to the version you want to install
-      INIT_MEMORY: 4G
-      MAX_MEMORY: 4G
+      #INIT_MEMORY: 4G
+      #MAX_MEMORY: 4G
+      MEMORY: 4G
       TZ: America/Santiago
       ENABLE_ROLLING_LOGS: "true"
       #EXEC_DIRECTLY: "true"
@@ -62,7 +64,7 @@ services:
       # For forge or curseforge, you need to provide the mods and modpacks directories
       #- ./mods:/mods:ro
       # For curseforge, you need to provide the modpacks directory
-      #- ./modpacks:/modpacks:ro
+      - ./modpacks:/modpacks:ro
 
   # Since Docker's default volume driver creates volumes owned by root, this
   # init container will change ownership to match final UID of mc service, above
